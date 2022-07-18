@@ -2,7 +2,7 @@ version: '3.9'
 
 services:
   enterprise-service:
-    build: ./../jackal-game/
+    build: ./jackal-game-enterprise-service/
     image: jackal-game-enterprise-service
     container_name: jackal-game-enterprise-service
     ports:
@@ -15,8 +15,8 @@ services:
       VK_AUTH_URL: ${VK_AUTH_URL}
       VK_API_VERSION: ${VK_API_VERSION}
       YANDEX_AUTH_URL: ${YANDEX_AUTH_URL}
-      JWT_SECRET: ${JWT_SECRET}
-      JWT_TIME_EXPIRATION_MS: ${JWT_TIME_EXPIRATION_MS}
+      ENTERPRISE_JWT_SECRET: ${ENTERPRISE_JWT_SECRET}
+      ENTERPRISE_JWT_TIME_EXPIRATION_MS: ${ENTERPRISE_JWT_TIME_EXPIRATION_MS}
     depends_on:
       - enterprise-service-db
     restart: always
@@ -30,11 +30,11 @@ services:
     ports:
       - ${DB_OUTER_PORT}:${DB_INNER_PORT}
   lobby-service:
-    build: ./..
+    build: ./jackal-game-lobby-service/
     image: jackal-game-lobby-service
     container_name: jackal-game-lobby-service
     ports:
       - "8081:8081"
     environment:
-      JWT_SECRET: ${LOBBY_JWT_SECRET}
+      LOBBY_JWT_SECRET: ${LOBBY_JWT_SECRET}
     restart: always
