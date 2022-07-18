@@ -1,0 +1,40 @@
+version: '3.9'
+
+services:
+  enterprise-service:
+    build: ./../jackal-game/
+    image: jackal-game-enterprise-service
+    container_name: jackal-game-enterprise-service
+    ports:
+      - "8080:8080"
+    environment:
+      DB_URL: "jdbc:${DB_PROTOCOL}://${DB_HOST}:${DB_INNER_PORT}/${DB_NAME}"
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      LOBBY_SERVICE_API_URL: ${LOBBY_SERVICE_API_URL}
+      VK_AUTH_URL: ${VK_AUTH_URL}
+      VK_API_VERSION: ${VK_API_VERSION}
+      YANDEX_AUTH_URL: ${YANDEX_AUTH_URL}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_TIME_EXPIRATION_MS: ${JWT_TIME_EXPIRATION_MS}
+    depends_on:
+      - enterprise-service-db
+    restart: always
+  enterprise-service-db:
+    image: postgres
+    container_name: jackal-game-enterprise-service-db
+    environment:
+      POSTGRES_DB: ${DB_NAME}
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - ${DB_OUTER_PORT}:${DB_INNER_PORT}
+  lobby-service:
+    build: ./..
+    image: jackal-game-lobby-service
+    container_name: jackal-game-lobby-service
+    ports:
+      - "8081:8081"
+    environment:
+      JWT_SECRET: ${LOBBY_JWT_SECRET}
+    restart: always

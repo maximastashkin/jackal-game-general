@@ -1,0 +1,6 @@
+[submodule "jackal-game-lobby-service"]
+	path = jackal-game-lobby-service
+	url = https://github.com/AleksejRonzhin/jackal-game-lobby-service
+[submodule "jackal-game-enterprise-service"]
+	path = jackal-game-enterprise-service
+	url = https://github.com/AleksejRonzhin/jackal-game-enterprise-service
