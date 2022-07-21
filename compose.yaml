@@ -38,3 +38,12 @@ services:
     environment:
       LOBBY_JWT_SECRET: ${LOBBY_JWT_SECRET}
     restart: always
+  game-session-service:
+    container_name: jackal-game-session-service
+    build: ./jackal-game-session-service/
+    image: jackal-game-session-service
+    ports:
+      - "${GAME_SESSION_SERVICE_PORT_EXTERNAL}:${GAME_SESSION_SERVICE_PORT_INTERNAL}"
+    environment:
+      - GAME_SESSION_SERVICE_HOST=${GAME_SESSION_SERVICE_HOST}
+      - GAME_SESSION_SERVICE_PORT=${GAME_SESSION_SERVICE_PORT_INTERNAL}
