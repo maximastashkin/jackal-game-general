@@ -4,3 +4,6 @@
 [submodule "jackal-game-enterprise-service"]
 	path = jackal-game-enterprise-service
 	url = https://github.com/AleksejRonzhin/jackal-game-enterprise-service
+[submodule "jackal-game-session-service"]
+	path = jackal-game-session-service
+	url = https://github.com/paavill/jackal-game-session-service
