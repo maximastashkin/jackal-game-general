@@ -1,0 +1,48 @@
+version: '3.9'
+
+services:
+  enterprise-service:
+    image: cr.yandex/crppidj5t5i39s5tg9p2/jackal-game-enterprise-service:1.0
+    container_name: jackal-game-enterprise-service
+    ports:
+      - "8080:8080"
+    environment:
+      DB_URL: "jdbc:postgresql://rc1b-86008e6ji7vmb51w.mdb.yandexcloud.net:6432/enterprise-service-db?&targetServerType=master"
+      DB_USER: "olegator"
+      DB_PASSWORD: "NFicu9bJe!eKs!z"
+      LOBBY_SERVICE_API_URL: "http://jackal-game-lobby-service:8081/api"
+      VK_AUTH_URL: "https://api.vk.com/method/users.get?fields=screen_name"
+      VK_API_VERSION: "5.131"
+      YANDEX_AUTH_URL: "https://login.yandex.ru/info?format=json"
+      ENTERPRISE_JWT_SECRET: "w7sc3prjHPy9bnpENY@==pAV$hA!Skn&asdbmsangfjhsdgfjhdsgfjksgadjhfsdagjhk"
+      ENTERPRISE_JWT_TIME_EXPIRATION_MS: "100000000"
+    restart: always
+  lobby-service:
+    image: cr.yandex/crppidj5t5i39s5tg9p2/jackal-game-lobby-service:1.0.2
+    container_name: jackal-game-lobby-service
+    ports:
+      - "8081:8081"
+    environment:
+      LOBBY_JWT_SECRET: "vergetghetwbhtrhhwryhryhnrw5gkhnfgghkdjhsgfjhsdgfsdhgfhsdgkhfg4h46hnyfgnfgnytn"
+    restart: always
+  game-session-service:
+    container_name: jackal-game-session-service
+    image: cr.yandex/crppidj5t5i39s5tg9p2/jackal-game-session-service:1.1
+    ports:
+      - "8030:8030"
+    environment:
+      GAME_SESSION_SERVICE_PORT: "8030"
+    restart: always
+  client:
+    image: cr.yandex/crppidj5t5i39s5tg9p2/jackal-game-client:1.0.3
+    container_name: jackal-game-client
+    ports:
+      - "3000:3000"
+    environment:
+      REACT_APP_VK_CLIENT_ID: "8212997"
+      REACT_APP_YANDEX_CLIENT_ID: "e431653fdda94550bf9d9941bca409b3"
+      REACT_APP_ENTERPRISE_URL: "http://51.250.107.52:8080"
+      REACT_APP_LOBBY_SERVICE_URL: "http://51.250.107.52:8081"
+      REACT_APP_GAME_SERVICE_URL: "http://51.250.107.52:8030"
+      REACT_APP_CLIENT_URL: "http://51.250.107.52:3000"
+    restart: always
