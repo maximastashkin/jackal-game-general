@@ -7,3 +7,6 @@
 [submodule "jackal-game-session-service"]
 	path = jackal-game-session-service
 	url = https://github.com/paavill/jackal-game-session-service
+[submodule "jackal-game-client"]
+	path = jackal-game-client
+	url = https://github.com/if0ne/jackal-game-client

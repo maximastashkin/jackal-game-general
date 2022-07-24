@@ -47,3 +47,16 @@ services:
     environment:
       - GAME_SESSION_SERVICE_HOST=${GAME_SESSION_SERVICE_HOST}
       - GAME_SESSION_SERVICE_PORT=${GAME_SESSION_SERVICE_PORT_INTERNAL}
+  client:
+    build: ./
+    image: jackal-game-client
+    container_name: jackal-game-client
+    ports:
+      - "3000:3000"
+    environment:
+      REACT_APP_VK_CLIENT_ID: ${REACT_APP_VK_CLIENT_ID}
+      REACT_APP_YANDEX_CLIENT_ID: ${REACT_APP_YANDEX_CLIENT_ID}
+      REACT_APP_ENTERPRISE_URL: ${REACT_APP_ENTERPRISE_URL}
+      REACT_APP_LOBBY_SERVICE_URL: ${REACT_APP_LOBBY_SERVICE_URL}
+      REACT_APP_GAME_SERVICE_URL: ${REACT_APP_GAME_SERVICE_URL}
+    restart: always
