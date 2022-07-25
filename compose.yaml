@@ -2,7 +2,8 @@ version: '3.9'
 
 services:
   enterprise-service:
-    image: cr.yandex/crppidj5t5i39s5tg9p2/jackal-game-enterprise-service:1.0
+    image: jackal-game-enterprise-service
+    build: ./jackal-game-enterprise-service/
     container_name: jackal-game-enterprise-service
     ports:
       - "8080:8080"
@@ -29,7 +30,8 @@ services:
     ports:
       - ${DB_OUTER_PORT}:${DB_INNER_PORT}
   lobby-service:
-    image: cr.yandex/crppidj5t5i39s5tg9p2/jackal-game-lobby-service:1.0
+    image: jackal-game-lobby-service
+    build: ./jackal-game-lobby-service/
     container_name: jackal-game-lobby-service
     ports:
       - "8081:8081"
@@ -38,14 +40,16 @@ services:
     restart: always
   game-session-service:
     container_name: jackal-game-session-service
-    image: cr.yandex/crppidj5t5i39s5tg9p2/jackal-game-session-service:1.0
+    image: jackal-game-session-service
+    build: ./jackal-game-session-service/
     ports:
       - "8030:8030"
     environment:
       GAME_SESSION_SERVICE_PORT: "8030"
     restart: always
   client:
-    image: cr.yandex/crppidj5t5i39s5tg9p2/jackal-game-client:1.0.3
+    image: jackal-game-client
+    build: ./jackal-game-client/
     container_name: jackal-game-client
     ports:
       - "3000:3000"
